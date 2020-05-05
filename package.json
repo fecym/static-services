@@ -16,7 +16,7 @@
     "server",
     "node"
   ],
-  "author": "chengyuming <yumingtarget@gmail.com> (https://github.com/cym-git)",
+  "author": "chengyuming <yumingtarget@gmail.com> (https://github.com/fecym)",
   "license": "MIT",
   "dependencies": {
     "chalk": "^3.0.0",
