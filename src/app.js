@@ -9,7 +9,7 @@ const zlib = require('zlib')
 const crypto = require('crypto')
 const handlebars = require('handlebars')
 
-const {promisify, inspect} = require('util')
+const { promisify, inspect } = require('util')
 const stat = promisify(fs.stat)
 const readdir = promisify(fs.readdir)
 
@@ -55,23 +55,30 @@ class Server {
   // 静态文件服务器
   async request(req, res) {
     // 先取到客户端想要的文件或者文件路径
-    const {pathname} = url.parse(req.url)
-    if (pathname === '/favicon.ico')
+    const { pathname } = url.parse(req.url)
+    if (pathname === '/favicon.ico') {
       return this.sendError('/favicon.ico not found', req, res)
+    }
     const filepath = path.join(this.config.root, pathname)
     try {
       const statObj = await stat(filepath)
       // 如果是目录那么显示目录下面的文件列表
       if (statObj.isDirectory()) {
         // 如果是文件夹要显示所有文件列表，所以需要写模板，模板我们选择 handlerbar 插件
-        let files = await readdir(filepath)
-        files = files.map(file => ({
-          name: file,
-          url: path.join(pathname, file),
-        }))
+        const files = await readdir(filepath), list = [];
+        for (let i = 0, len = files.length; i < len; i++) {
+          const file = files[i]
+          const fullName = path.resolve(filepath, file)
+          const _stat = await stat(fullName)
+          list.push({
+            name: file,
+            url: path.join(pathname, file),
+            isDir: _stat.isDirectory()
+          })
+        }
         const html = this.list({
-          title: pathname,
-          files,
+          title: pathname + ' | 静态服务器',
+          list
         })
         res.setHeader('Content-Type', 'text/html')
         res.end(html)

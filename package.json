@@ -4,7 +4,7 @@
   "description": "可以在任意目录下启动一个静态文件服务器，并且把当前目录作为文件服务器",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "static-services"
   },
   "bin": {
     "static-services": "bin/www"

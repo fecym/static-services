@@ -4,13 +4,42 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1906146_b0wpajpupma.css">
   <title>{{title}}</title>
+  <style>
+    .iconwenjianjia {
+      color: #FFCD2C;
+    }
+
+    .iconwenjian {
+      color: #BED3F4;
+    }
+
+    ul,
+    li {
+      padding: 0;
+      margin: 0;
+      list-style: none;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    li {
+      line-height: 30px;
+      font-size: 20px;
+      margin-left: 10px;
+    }
+  </style>
 </head>
-<!-- const data = { title: 'cym', files: [{ name: '1', url: '/1' }] } -->
+
 <body>
   <ul>
-    {{#each files}}
+    {{#each list}}
     <li>
+      {{#if isDir}}
+      <i class="iconfont iconwenjianjia"></i>
+      {{else}}
+      <i class="iconfont iconwenjian"></i>
+      {{/if}}
       <a href="{{url}}">{{name}}</a>
     </li>
     {{/each}}

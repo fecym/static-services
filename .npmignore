@@ -1,3 +1,4 @@
 node_modules
 /public/*
 /bin/www.js
+.vscode
